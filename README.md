@@ -1,1 +1,1 @@
-# Leet
+Training to solve Leetcode problems

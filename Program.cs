@@ -10,7 +10,12 @@
 			//var bt = new BinaryTree();
 			//bt.Tree2str();
 
-			new Zigzag().Run();
+			//Match.Run();
+			//ImageRotate.Run();
+
+			//new Zigzag().Run();
+
+			Permutations.Run();
 		}
 	}
 
