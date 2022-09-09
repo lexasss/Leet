@@ -15,7 +15,8 @@
 
 			//new Zigzag().Run();
 
-			Permutations.Run();
+			//Permutations.Run();
+			JumpGame.Run();
 		}
 	}
 
