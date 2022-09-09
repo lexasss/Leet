@@ -5,7 +5,7 @@
 		static void Main(string[] args)
 		{
 			//new FirstMissingPositive();
-			//new LongestValidPair();
+			//Parentheses.LongestValidPair();
 
 			//var bt = new BinaryTree();
 			//bt.Tree2str();
@@ -14,9 +14,9 @@
 			//ImageRotate.Run();
 
 			//new Zigzag().Run();
+			//JumpGame.Run();
 
-			//Permutations.Run();
-			JumpGame.Run();
+			Permutations.Run();
 		}
 	}
 
