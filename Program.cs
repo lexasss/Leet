@@ -5,7 +5,7 @@
 		static void Main(string[] args)
 		{
 			//new FirstMissingPositive();
-			//new LongestValidPair();
+			//Parentheses.LongestValidPair();
 
 			//var bt = new BinaryTree();
 			//bt.Tree2str();
@@ -15,7 +15,9 @@
 
 			//new Zigzag().Run();
 
-			Permutations.Run();
+			//Permutations.Run();
+
+			Parentheses.IsCorrectSequence();
 		}
 	}
 
