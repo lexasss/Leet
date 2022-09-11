@@ -7,44 +7,40 @@ namespace Leet
     {
         public static void LongestValidParentheses()
         {
-            void Check(string s, int expected)
-            {
-                int result = LongestValidParentheses(s);
-                Console.WriteLine($"{result == expected} => {s} = {result}, expected {expected}");
-            }
+            Check.Value(0, LongestValidParentheses, "");
+            Check.Value(0, LongestValidParentheses, ")");
+            Check.Value(2, LongestValidParentheses, ")()");
+            Check.Value(2, LongestValidParentheses, "()");
+            Check.Value(2, LongestValidParentheses, "()(");
+            Check.Value(2, LongestValidParentheses, "())");
+            Check.Value(4, LongestValidParentheses, "())()()");
+            Check.Value(4, LongestValidParentheses, "()()");
+            Check.Value(2, LongestValidParentheses, "()(()");
 
-            Check("", 0);
-            Check(")", 0);
-            Check(")()", 2);
-            Check("()", 2);
-            Check("()(", 2);
-            Check("())", 2);
-            Check("())()()", 4);
-            Check("()()", 4);
-            Check("()(()", 2);
-
-            Check("(())", 4);
-            Check("(()())", 6);
-            Check("(()())())", 8);
-            Check("(()()))()", 6);
-            Check("(()()(())", 8);
-            Check("((())()()))(())()()()()(()()()()()()(()()", 12);
+            Check.Value(4, LongestValidParentheses, "(())");
+            Check.Value(6, LongestValidParentheses, "(()())");
+            Check.Value(8, LongestValidParentheses, "(()())())");
+            Check.Value(6, LongestValidParentheses, "(()()))()");
+            Check.Value(8, LongestValidParentheses, "(()()(())");
+            Check.Value(12, LongestValidParentheses, "((())()()))(())()()()()(()()()()()()(()()");
         }
 
         public static void IsCorrectSequence()
         {
-            void Check(string s, bool expected)
-            {
-                var result = IsCorrectSequence(s);
-                Console.WriteLine($"{result == expected} => {s} = {result}, expected {expected}");
-            }
+            Check.Value(true, IsCorrectSequence, "()");
+            Check.Value(true, IsCorrectSequence, "()[]{}");
+            Check.Value(false, IsCorrectSequence, "(]");
+            Check.Value(false, IsCorrectSequence, "]");
+            Check.Value(false, IsCorrectSequence, "(){");
+            Check.Value(true, IsCorrectSequence, "{[]}");
+        }
 
-            Check("()", true);
-            Check("()[]{}", true);
-            Check("(]", false);
-            Check("]", false);
-            Check("(){", false);
-            Check("{[]}", true);
+        public static void GenerateParenthesis()
+        {
+            Check.List(new List<string> { "()" }, GenerateParenthesis, 1);
+            Check.List(new List<string> { "(())", "()()" }, GenerateParenthesis, 2);
+            Check.List(new List<string> { "((()))", "(()())", "(())()", "()(())", "()()()" }, GenerateParenthesis, 3);
+            Check.List(new List<string> { "(((())))", "((()()))", "((())())", "((()))()", "(()(()))", "(()()())", "(()())()", "(())(())", "(())()()", "()((()))", "()(()())", "()(())()", "()()(())", "()()()()" }, GenerateParenthesis, 4);
         }
 
         static int LongestValidParentheses(string s)
@@ -130,6 +126,32 @@ namespace Leet
             }
 
             return expecting.Count == 0;
+        }
+
+        static IList<string> GenerateParenthesis(int n)
+        {
+            List<string> result = new();
+
+            void Add(int opened, int closed, string s)
+            {
+                if (opened < n)
+                {
+                    Add(opened + 1, closed, s + "(");
+                }
+                if (closed < n && closed < opened)
+                {
+                    Add(opened, closed + 1, s + ")");
+                }
+
+                if (opened == n && closed == n)
+                {
+                    result.Add(s);
+                }
+            }
+
+            Add(0, 0, "");
+
+            return result;
         }
     }
 }

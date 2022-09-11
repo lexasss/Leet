@@ -8,70 +8,63 @@ namespace Leet
     {
 		public static void Run()
         {
-			Check("", "", true);
-			Check("", "b", false);
-			Check("a", "", false);
+			Check.Value(true, IsMatch, "", "");
+			Check.Value(false, IsMatch, "", "b");
+			Check.Value(false, IsMatch, "a", "");
 
-			Check("a", "a", true);
-			Check("aa", "a", false);
-			Check("aa", "aaa", false);
-			Check("a", "b", false);
-			Check("ab", "ab", true);
-			Check("aab", "ab", false);
-			Check("ab", "abb", false);
+			Check.Value(true, IsMatch, "a", "a");
+			Check.Value(false, IsMatch, "aa", "a");
+			Check.Value(false, IsMatch, "aa", "aaa");
+			Check.Value(false, IsMatch, "a", "b");
+			Check.Value(true, IsMatch, "ab", "ab");
+			Check.Value(false, IsMatch, "aab", "ab");
+			Check.Value(false, IsMatch, "ab", "abb");
 
-			Check("b", "?*?", false);
-			Check("ab", "?b", true);
-			Check("ab", "a?", true);
-			Check("ab", "a??", false);
-			Check("asas", "*?", true);
+			Check.Value(false, IsMatch, "b", "?*?");
+			Check.Value(true, IsMatch, "ab", "?b");
+			Check.Value(true, IsMatch, "ab", "a?");
+			Check.Value(false, IsMatch, "ab", "a??");
+			Check.Value(true, IsMatch, "asas", "*?");
 
-			Check("", "*?", false);
-			Check("", "*", true);
+			Check.Value(false, IsMatch, "", "*?");
+			Check.Value(true, IsMatch, "", "*");
 
-			Check("aab", "*b", true);
-			Check("aab", "*b*", true);
-			Check("aab", "*c*", false);
-			Check("aab", "*b?", false);
-			Check("aab", "*a?", true);
-			Check("aab", "b*", false);
-			Check("aab", "**a", false);
-			Check("aab", "**b", true);
-			Check("aab", "a*b", true);
-			Check("aab", "a*c", false);
+			Check.Value(true, IsMatch, "aab", "*b");
+			Check.Value(true, IsMatch, "aab", "*b*");
+			Check.Value(false, IsMatch, "aab", "*c*");
+			Check.Value(false, IsMatch, "aab", "*b?");
+			Check.Value(true, IsMatch, "aab", "*a?");
+			Check.Value(false, IsMatch, "aab", "b*");
+			Check.Value(false, IsMatch, "aab", "**a");
+			Check.Value(true, IsMatch, "aab", "**b");
+			Check.Value(true, IsMatch, "aab", "a*b");
+			Check.Value(false, IsMatch, "aab", "a*c");
 
-			Check("aacab", "*c*b", true);
-			Check("aacab", "*c?b", true);
-			Check("aacabd", "*c?b", false);
-			Check("aaccab", "*c?b", true);
-			Check("aaccab", "*cab", true);
-			Check("aaccab", "aac*b", true);
-			Check("aaccab", "a*c*b", true);
-			Check("aaccab", "a*b*b", false);
+			Check.Value(true, IsMatch, "aacab", "*c*b");
+			Check.Value(true, IsMatch, "aacab", "*c?b");
+			Check.Value(false, IsMatch, "aacabd", "*c?b");
+			Check.Value(true, IsMatch, "aaccab", "*c?b");
+			Check.Value(true, IsMatch, "aaccab", "*cab");
+			Check.Value(true, IsMatch, "aaccab", "aac*b");
+			Check.Value(true, IsMatch, "aaccab", "a*c*b");
+			Check.Value(false, IsMatch, "aaccab", "a*b*b");
 
-			Check("abcabczzzde", "*abc???de*", true);
-			Check("abcabczzzde", "*abc*ad*", false);
-			Check("abcaaaazzzde", "*abc*az*", true);
-			Check("abcaaaazzzde", "*abc*zzzzd*", false);
-			Check("abcaaaazzzde", "*abc*zzdd*", false);
+			Check.Value(true, IsMatch, "abcabczzzde", "*abc???de*");
+			Check.Value(false, IsMatch, "abcabczzzde", "*abc*ad*");
+			Check.Value(true, IsMatch, "abcaaaazzzde", "*abc*az*");
+			Check.Value(false, IsMatch, "abcaaaazzzde", "*abc*zzzzd*");
+			Check.Value(false, IsMatch, "abcaaaazzzde", "*abc*zzdd*");
 
-			Check("abczzz", "*abc???*", true);
-			Check("abczzzde", "*abc???*", true);
-			Check("abczzzde", "*abc???de*", true);
-			Check("abcabczzzdeXabczzzdede", "*abc???de*abc???de*", true);
+			Check.Value(true, IsMatch, "abczzz", "*abc???*");
+			Check.Value(true, IsMatch, "abczzzde", "*abc???*");
+			Check.Value(true, IsMatch, "abczzzde", "*abc???de*");
+			Check.Value(true, IsMatch, "abcabczzzdeXabczzzdede", "*abc???de*abc???de*");
 		}
 
 		enum Dir
 		{
 			Forward,
 			Backward
-		}
-
-		static void Check(string s, string p, bool expected)
-		{
-			bool result = IsMatch(s, p);
-			string eq = result ? "==" : "!=";
-			Console.WriteLine($"{result == expected} : \"{s}\" {eq} \"{p}\"");
 		}
 
 		static bool IsMatch(string s, string p)

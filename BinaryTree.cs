@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
+﻿using System.Text;
 
 namespace Leet
 {
@@ -28,14 +25,8 @@ namespace Leet
     {
         public void Tree2str()
         {
-            void Check(TreeNode root, string expected)
-            {
-                var result = Tree2str(root);
-                Console.WriteLine($"{result == expected} => {root} = {result}, expected {expected}");
-            }
-
-            Check(new TreeNode { val = 1, left = new TreeNode { val = 2, left = new TreeNode { val = 4 } }, right = new TreeNode { val = 3 } }, "1(2(4))(3)");
-            Check(new TreeNode { val = 1, left = new TreeNode { val = 2, right = new TreeNode { val = 4 } }, right = new TreeNode { val = 3 } }, "1(2()(4))(3)");
+            Check.Value("1(2(4))(3)", Tree2str, new TreeNode { val = 1, left = new TreeNode { val = 2, left = new TreeNode { val = 4 } }, right = new TreeNode { val = 3 } });
+            Check.Value("1(2()(4))(3)", Tree2str, new TreeNode { val = 1, left = new TreeNode { val = 2, right = new TreeNode { val = 4 } }, right = new TreeNode { val = 3 } });
         }
 
         string Tree2str(TreeNode root)

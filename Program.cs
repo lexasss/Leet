@@ -4,7 +4,7 @@
 	{
 		static void Main(string[] args)
 		{
-			//new FirstMissingPositive();
+			//FirstMissingPositive.Run();
 			//Parentheses.LongestValidPair();
 
 			//var bt = new BinaryTree();
@@ -16,7 +16,11 @@
 			//new Zigzag().Run();
 			//JumpGame.Run();
 
-			Permutations.Run();
+			//Permutations.Run();
+			//Parentheses.IsCorrectSequence();
+
+			//LetterCombinations.Run();
+			//Parentheses.GenerateParenthesis();
 		}
 	}
 

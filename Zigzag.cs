@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Leet
 {
@@ -8,17 +6,11 @@ namespace Leet
     {
         public void Run()
         {
-            void Check(string s, int numRows, string expected)
-            {
-                var result = Convert(s, numRows);
-                Console.WriteLine($"{result == expected} => {s} / {numRows} = {result}, expected {expected}");
-            }
-
-            Check("A", 1, "A");
-            Check("AB", 1, "AB");
-            Check("ABCD", 2, "ACBD");
-            Check("PAYPALISHIRING", 3, "PAHNAPLSIIGYIR");
-            Check("PAYPALISHIRING", 4, "PINALSIGYAHRPI");
+            Check.Value("A", Convert, "A", 1);
+            Check.Value("AB", Convert, "AB", 1);
+            Check.Value("ACBD", Convert, "ABCD", 2);
+            Check.Value("PAHNAPLSIIGYIR", Convert, "PAYPALISHIRING", 3);
+            Check.Value("PINALSIGYAHRPI", Convert, "PAYPALISHIRING", 4);
         }
 
         string Convert(string s, int numRows)

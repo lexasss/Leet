@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Leet
 {
@@ -8,17 +6,11 @@ namespace Leet
     {
         public static void Run()
         {
-            void Check(int[] nums, int expected)
-            {
-                var result = Jump(nums);
-                Console.WriteLine($"{result == expected} => {string.Join(',', nums)} = {result}, expected {expected}");
-            }
-
-            Check(new int[] { 1 }, 0);
-            Check(new int[] { 1, 2, 3, 4, 5 }, 3);
-            Check(new int[] { 2, 3, 1, 1, 4 }, 2);
-            Check(new int[] { 2, 3, 0, 1, 4 }, 2);
-            Check(new int[] { 5, 3, 1, 1, 0 }, 1);
+            Check.Value(0, Jump, new int[] { 1 });
+            Check.Value(3, Jump, new int[] { 1, 2, 3, 4, 5 });
+            Check.Value(2, Jump, new int[] { 2, 3, 1, 1, 4 });
+            Check.Value(2, Jump, new int[] { 2, 3, 0, 1, 4 });
+            Check.Value(1, Jump, new int[] { 5, 3, 1, 1, 0 });
         }
 
         static int Jump(int[] nums)
