@@ -8,6 +8,8 @@ namespace Leet
     {
         public delegate IEnumerable<T> ActionReturnsListDelegate<T,U>(U arg1);
         public delegate IList<IList<T>> ActionReturnsListOfListsDelegate<T, U>(U arg1);
+        public delegate ListNode ActionReturnsLinkedListDelegate(ListNode arg1);
+        public delegate ListNode ActionReturnsLinkedListDelegate2<T>(ListNode arg1, T arg2);
         public delegate void ActionReturnsVoidDelegate<T, U>(U arg1);
         public delegate T ActionReturnsValueDelegate1<T, U>(U arg1);
         public delegate T ActionReturnsValueDelegate2<T, U1, U2>(U1 arg1, U2 arg2);
@@ -25,7 +27,7 @@ namespace Leet
             {
                 isEqual = result.Except(expected).Count() == 0;
             }
-            Console.WriteLine($"{isEqual} => {arg1} = [{string.Join(",", result.Select(s => $"\"{s}\""))}], expected [{string.Join(",", expected.Select(s => $"\"{s}\""))}]");
+            Console.WriteLine($"{isEqual} => {arg1} = {Stringify(result)}, expected {Stringify(expected)}]");
         }
 
         public static void List<T, U>(IList<IList<T>> expected, ActionReturnsListOfListsDelegate<T, U> executor, U arg1, Options options = default)
@@ -73,9 +75,9 @@ namespace Leet
         public static void Value<T,U>(T expected, ActionReturnsValueDelegate1<T,U> executor, U arg1, Options options = default)
         {
             options = options ?? new Options();
-            string a1 = arg1 is IEnumerable<int> list ? "[" + string.Join(",", list) + "]" : arg1.ToString();
+            string a1 = Stringify(arg1);
             var result = executor(arg1);
-            string mi = options.ModifiedInput && arg1 is IEnumerable<int> listModified ? "=> " + "[" + string.Join(",", listModified) + "]" : "";
+            string mi = options.ModifiedInput && arg1 is IEnumerable<int> listModified ? "=> " + Stringify(listModified) : "";
             Console.WriteLine($"{EqualityComparer<T>.Default.Equals(result, expected)} => {a1} {mi} = {result}, expected {expected}");
         }
 
@@ -89,14 +91,53 @@ namespace Leet
             Console.WriteLine($"{EqualityComparer<T>.Default.Equals(result, expected)} => {a1}|{a2} {mi1} = {result}, expected {expected}");
         }
 
+        public static void LinkedList(ListNode expected, ActionReturnsLinkedListDelegate executor, ListNode arg1)
+        {
+            var e = expected;
+            var a = arg1;
+
+            List<int> expList = new();
+            List<int> argList = new();
+
+            do
+            {
+                argList.Add(a.val);
+                a = a.next;
+            } while (a != null);
+
+
+            var result = executor(arg1);
+
+            var r = result;
+            List<int> resList = new();
+
+            bool isEqual;
+            do
+            {
+                expList.Add(e.val);
+                resList.Add(r.val);
+
+                isEqual = expected.val == result.val;
+                r = r.next;
+                e = e.next;
+            } while (isEqual && r != null && e != null);
+
+            isEqual = isEqual && r == null && e == null;
+
+            Console.WriteLine($"{isEqual} => {Stringify(argList)} = {Stringify(resList)}, expected {Stringify(expList)}");
+        }
+
+        // Internal
 
         static string Stringify(object arg)
         {
             return arg is IList<IList<int>> listOfLists
                 ? "[" + string.Join(',', listOfLists.Select(row => "[" + string.Join(',', row) + "]")) + "]"
-                : (arg is IList<int> list
-                    ? "[" + string.Join(",", list) + "]"
-                    : arg.ToString());
+                : (arg is IList<int> intList
+                    ? "[" + string.Join(",", intList) + "]"
+                        : (arg is IList<string> strList
+                        ? "[" + string.Join(",", strList.Select(s => $"\"{s}\"")) + "]"
+                            : arg.ToString()));
         }
     }
 }
