@@ -11,7 +11,7 @@
 			//bt.Tree2str();
 
 			//Match.Run();
-			//ImageRotate.Run();
+			ImageRotate.Run();
 
 			//new Zigzag().Run();
 			//JumpGame.Run();
@@ -21,6 +21,8 @@
 
 			//LetterCombinations.Run();
 			//Parentheses.GenerateParenthesis();
+
+			//Remove.Run();
 		}
 	}
 

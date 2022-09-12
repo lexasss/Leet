@@ -36,7 +36,7 @@ namespace Leet
 
             StringBuilder sb = new StringBuilder();
 
-            void node2str(TreeNode node)
+            void Node2Str(TreeNode node)
             {
                 sb.Append("(");
                 sb.Append(node.val.ToString());
@@ -45,7 +45,7 @@ namespace Leet
                 {
                     if (node.left != null)
                     {
-                        node2str(node.left);
+                        Node2Str(node.left);
                     }
                     else
                     {
@@ -54,14 +54,14 @@ namespace Leet
 
                     if (node.right != null)
                     {
-                        node2str(node.right);
+                        Node2Str(node.right);
                     }
                 }
 
                 sb.Append(")");
             }
 
-            node2str(root);
+            Node2Str(root);
 
             return sb.ToString()[1..^1];
         }
