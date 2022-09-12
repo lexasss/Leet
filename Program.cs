@@ -24,7 +24,8 @@
 
 			//Remove.Run();
 
-			LinkedList.SwapPairs();
+			//LinkedList.SwapPairs();
+			LinkedList.ReverseKGroup();
 		}
 	}
 

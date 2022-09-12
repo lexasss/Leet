@@ -93,30 +93,16 @@ namespace Leet
 
         public static void LinkedList(ListNode expected, ActionReturnsLinkedListDelegate executor, ListNode arg1)
         {
-            var e = expected;
-            var a = arg1;
-
-            List<int> expList = new();
-            List<int> argList = new();
-
-            do
-            {
-                argList.Add(a.val);
-                a = a.next;
-            } while (a != null);
-
+            string argStr = Stringify(arg1);
 
             var result = executor(arg1);
 
             var r = result;
-            List<int> resList = new();
-
+            var e = expected;
             bool isEqual;
+
             do
             {
-                expList.Add(e.val);
-                resList.Add(r.val);
-
                 isEqual = expected.val == result.val;
                 r = r.next;
                 e = e.next;
@@ -124,20 +110,43 @@ namespace Leet
 
             isEqual = isEqual && r == null && e == null;
 
-            Console.WriteLine($"{isEqual} => {Stringify(argList)} = {Stringify(resList)}, expected {Stringify(expList)}");
+            Console.WriteLine($"{isEqual} => {argStr} = {Stringify(result)}, expected {Stringify(expected)}");
+        }
+
+        public static void LinkedList<T>(ListNode expected, ActionReturnsLinkedListDelegate2<T> executor, ListNode arg1, T arg2)
+        {
+            string argStr = Stringify(arg1);
+
+            var result = executor(arg1, arg2);
+
+            var r = result;
+            var e = expected;
+            bool isEqual;
+
+            do
+            {
+                isEqual = expected.val == result.val;
+                r = r.next;
+                e = e.next;
+            } while (isEqual && r != null && e != null);
+
+            isEqual = isEqual && r == null && e == null;
+
+            Console.WriteLine($"{isEqual} => {argStr} = {Stringify(result)}, expected {Stringify(expected)}");
         }
 
         // Internal
 
         static string Stringify(object arg)
         {
-            return arg is IList<IList<int>> listOfLists
-                ? "[" + string.Join(',', listOfLists.Select(row => "[" + string.Join(',', row) + "]")) + "]"
-                : (arg is IList<int> intList
-                    ? "[" + string.Join(",", intList) + "]"
-                        : (arg is IList<string> strList
-                        ? "[" + string.Join(",", strList.Select(s => $"\"{s}\"")) + "]"
-                            : arg.ToString()));
+            return arg switch
+            {
+                IList<IList<int>> listOfLists => "[" + string.Join(',', listOfLists.Select(row => "[" + string.Join(',', row) + "]")) + "]",
+                IList<int> intList => "[" + string.Join(",", intList) + "]",
+                IList<string> strList => "[" + string.Join(",", strList.Select(s => $"\"{s}\"")) + "]",
+                ListNode node => "[" + node + "]",
+                _ => arg.ToString()
+            };
         }
     }
 }
