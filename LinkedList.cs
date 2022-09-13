@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Leet
 {
@@ -92,6 +90,43 @@ namespace Leet
             ListNode chunkTailPrev = null;
             ListNode newHead = null;
 
+            Stack<ListNode> stack = new();
+            while (chunkHead != null)
+            {
+                for (int i = 0; i < k; ++i)
+                {
+                    if (chunkHead == null)
+                    {
+                        return newHead ?? head;
+                    }
+
+                    stack.Push(chunkHead);
+                    chunkHead = chunkHead.next;
+                }
+
+                ListNode newChunkHead = stack.Pop();
+                ListNode node = newChunkHead;
+                while (stack.Count > 0)
+                {
+                    var nextNode = stack.Pop();
+                    node.next = nextNode;
+                    node = nextNode;
+                }
+
+                if (chunkTailPrev != null)
+                {
+                    chunkTailPrev.next = newChunkHead;
+                }
+                if (newHead == null)
+                {
+                    newHead = newChunkHead;
+                }
+
+                chunkTailPrev = node;
+                chunkTailPrev.next = chunkHead;
+            }
+
+            /*
             bool isLongEnough(ListNode node)
             {
                 int count = k;
@@ -139,6 +174,7 @@ namespace Leet
             {
                 chunkTailPrev.next = chunkHead;
             }
+            */
 
             return newHead ?? head;
         }

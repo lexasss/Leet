@@ -132,7 +132,7 @@ namespace Leet
 
             isEqual = isEqual && r == null && e == null;
 
-            Console.WriteLine($"{isEqual} => {argStr} = {Stringify(result)}, expected {Stringify(expected)}");
+            Console.WriteLine($"{isEqual} => {argStr}|{Stringify(arg2)} = {Stringify(result)}, expected {Stringify(expected)}");
         }
 
         // Internal
